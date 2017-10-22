@@ -23,33 +23,33 @@ public class FilmesRepositoryRAM implements FilmesRepository{
 		      new Filme(UUID.randomUUID(), "Filme 2", null,
 		          null,
 		          LocalDate.of(2017, 10, 2),
-		          LocalDate.of(2017, 10, 21)),
+		          LocalDate.of(2017, 10, 30)),
 		      new Filme(UUID.randomUUID(), "Filme 3", null,
 		          null, null, null),
 		      new Filme(UUID.randomUUID(), "Filme 4", "Sinopse do filme 4",
 		          Duration.ofHours(1),
 		          LocalDate.of(2016, 10, 2),
-		          LocalDate.of(2016, 10, 21))
+		          LocalDate.of(2016, 10, 30))
 		);
 	
 	@Override
 	public Pagina<Filme> buscarPaginaEmExibicao(ParametrosDePaginacao parametrosDePaginacao, LocalDate referencia) {
-		List<Filme> emExibicao = registros.stream()
-	               .filter(filme -> filme.emExibicao(referencia))
-	               .collect(Collectors.toList());
+		 List<Filme> emExibicao = registros.stream()
+			        .filter(filme -> filme.emExibicao(referencia))
+			        .collect(Collectors.toList());
 
-	       Integer pagina = parametrosDePaginacao.getPagina();
-	       Integer tamanhoDaPagina = parametrosDePaginacao.getTamanhoDaPagina();
-	       Integer primeiroRegistro = (pagina - 1) * tamanhoDaPagina;
-	       Integer ultimoRegistro = primeiroRegistro + tamanhoDaPagina;
-	       Integer totalDeRegistros = emExibicao.size();
-	       List<Filme> registros = emExibicao.subList(primeiroRegistro,
-	               Math.min(totalDeRegistros, ultimoRegistro));
+			    Integer pagina = parametrosDePaginacao.getPagina();
+			    Integer tamanhoDaPagina = parametrosDePaginacao.getTamanhoDaPagina();
+			    Integer primeiroRegistro = (pagina - 1) * tamanhoDaPagina;
+			    Integer ultimoRegistro = primeiroRegistro + tamanhoDaPagina;
+			    Integer totalDeRegistros = emExibicao.size();
+			    List<Filme> registros = emExibicao.subList(primeiroRegistro,
+			        Math.min(totalDeRegistros, ultimoRegistro));
 
-	       Pagina<Filme> paginaDeRegistros = new Pagina<>();
-	       paginaDeRegistros.setRegistros(registros);
-	       paginaDeRegistros.setTotalDeRegistros(totalDeRegistros);
-	       return paginaDeRegistros;
+			    Pagina<Filme> paginaDeRegistros = new Pagina<>();
+			    paginaDeRegistros.setRegistros(registros);
+			    paginaDeRegistros.setTotalDeRegistros(totalDeRegistros);
+			return paginaDeRegistros;
 	}
 	
 	@Override
